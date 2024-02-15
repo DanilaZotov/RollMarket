@@ -1,19 +1,34 @@
 import express from "express";
 import ViteExpress from "vite-express";
-import bodyParser from "body-parser";
-import cors from "cors";
+import mysql from "mysql";
 
 const app = express();
 
-let corsOptions = {
-    origin: "http://localhost:3001"
-}
+const connection = mysql.createConnection({
+  host: "server160.hosting.reg.ru",
+  user: "u2481097_abc",
+  password: "uY4aW1qZ4rhH4aI7",
+  database: "u2481097_default",
+});
 
-app.use(cors(corsOptions));
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to MySQL:", err);
+    return;
+  }
+  console.log("Connected to MySQL database");
+});
 
-app.use(bodyParser.json());
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
+app.get("/api/data", (req, res) => {
+  const query = "SELECT * FROM catalog_items";
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Failed to fetch data from MySQL" });
+      return;
+    }
+    res.json(results); // Send fetched data as JSON response
+  });
+});
 
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
