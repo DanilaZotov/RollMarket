@@ -1,0 +1,40 @@
+.order-content {
+  font-size: 1.3em;
+  font-family: "Montserrat";
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.cart-item {
+    display: flex;
+}
+
+.flex-class {
+    flex: 1;
+}
+
+.item-details {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-controls {
+    display: flex;
+    margin: 0 10px 0 10px;
+}
+
+.quantity-button {
+    background-color: #eee;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    width: 35px;
+    border-radius: 50px;
+  }
+
+.item-image {
+  width: auto;
+  height: 125px;
+}

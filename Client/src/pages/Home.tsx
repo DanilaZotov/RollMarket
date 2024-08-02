@@ -1,26 +1,19 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import React, { useState, useEffect, Key } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { Autoplay } from "swiper/modules";
+import CartProduct from "../interfaces/CartProduct";
+import AddToCartButton from "../components/AddToCardButton";
+
+// import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+// import { addItem } from "../features/cart/cartSlice";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { Autoplay } from "swiper/modules";
-
-interface Item {
-  id: Key;
-  category: string,
-  name: string;
-  img_path: string;
-  amount: number;
-  weight: number;
-  contents: string;
-  price: number;
-}
-
 export default function Home() {
-  const [data, setData] = useState<Item[]>([]);
+  const [data, setData] = useState<CartProduct[]>([]);
 
   useEffect(() => {
     axios
@@ -33,23 +26,20 @@ export default function Home() {
       });
   }, []);
 
-  const defaultRolls = data.filter(item => 
-    item.category === "Роллы");
-  
-  const friedRolls = data.filter(item => 
-    item.category === "Горячие роллы");
+  // const cart = useAppSelector((state) => state.cart.items);
+  // const dispatch = useAppDispatch();
 
-  const setOfRolls = data.filter(item => 
-    item.category === "Наборы");
+  const defaultRolls = data.filter((item) => item.category === "Роллы");
 
-  const salads = data.filter(item => 
-    item.category === "Салаты");
+  const friedRolls = data.filter((item) => item.category === "Горячие роллы");
 
-  const sauces = data.filter(item => 
-    item.category === "Соусы");
+  const setOfRolls = data.filter((item) => item.category === "Наборы");
 
-  const misc = data.filter(item => 
-    item.category === "Разное");
+  const salads = data.filter((item) => item.category === "Салаты");
+
+  const sauces = data.filter((item) => item.category === "Соусы");
+
+  const misc = data.filter((item) => item.category === "Разное");
 
   return (
     <>
@@ -82,9 +72,9 @@ export default function Home() {
           </SwiperSlide>
         </Swiper>
       </section>
-      <section>
+      <section id='sticky'>
         <Swiper
-          id="filer-bar"
+          id="filter-bar"
           className="filters"
           slidesPerView={"auto"}
           preventClicks={false}
@@ -136,20 +126,20 @@ export default function Home() {
         </div>
         {defaultRolls.map((item) => (
           <>
-          <div className="card">
-            <img
-              src={item.img_path}
-              className="card-img"
-            ></img>
-            <div className="card-description">
-              <h2 className="card-name">{item.name}</h2>
-              <div className="weight-amount">{item.weight} гр. / {item.amount} шт.</div>
-              <div className="card-bottom-content">
-                <p className="card-price">от {item.price} ₽</p>
-                <button className="card-button">Добавить</button>
+            <div className="product-item">
+              <img src={item.img_path} className="product-item-img"></img>
+              <div className="product-item-description">
+                <h2 className="product-item-name">{item.name}</h2>
+                <div className="weight-amount">
+                  {item.weight} гр. / {item.amount} шт.
+                </div>
+                <div>
+                  <div className="product-item-price">от {item.price} ₽</div>
+                  {/* <button className="card-button">Добавить</button> */}
+                  <AddToCartButton item={item}></AddToCartButton>
+                </div>
               </div>
             </div>
-          </div>
           </>
         ))}
         <div id="Горячие роллы" className="new-section anchor">
@@ -157,20 +147,20 @@ export default function Home() {
         </div>
         {friedRolls.map((item) => (
           <>
-          <div className="card">
-            <img
-              src={item.img_path}
-              className="card-img"
-            ></img>
-            <div className="card-description">
-              <h2 className="card-name">{item.name}</h2>
-              <div className="weight-amount">{item.weight} гр. / {item.amount} шт.</div>
-              <div className="card-bottom-content">
-                <p className="card-price">от {item.price} ₽</p>
-                <button className="card-button">Добавить</button>
+            <div className="product-item">
+              <img src={item.img_path} className="product-item-img"></img>
+              <div className="product-item-description">
+                <h2 className="product-item-name">{item.name}</h2>
+                <div className="weight-amount">
+                  {item.weight} гр. / {item.amount} шт.
+                </div>
+                <div>
+                  <div className="product-item-price">от {item.price} ₽</div>
+                  {/* <button className="card-button">Добавить</button> */}
+                  <AddToCartButton item={item}></AddToCartButton>
+                </div>
               </div>
             </div>
-          </div>
           </>
         ))}
         <div id="Наборы" className="new-section anchor">
@@ -178,20 +168,20 @@ export default function Home() {
         </div>
         {setOfRolls.map((item) => (
           <>
-          <div className="card">
-            <img
-              src={item.img_path}
-              className="card-img"
-            ></img>
-            <div className="card-description">
-              <h2 className="card-name">{item.name}</h2>
-              <div className="weight-amount">{item.weight} гр. / {item.amount} шт.</div>
-              <div className="card-bottom-content">
-                <p className="card-price">от {item.price} ₽</p>
-                <button className="card-button">Добавить</button>
+            <div className="product-item">
+              <img src={item.img_path} className="product-item-img"></img>
+              <div className="product-item-description">
+                <h2 className="product-item-name">{item.name}</h2>
+                <div className="weight-amount">
+                  {item.weight} гр. / {item.amount} шт.
+                </div>
+                <div>
+                  <div className="product-item-price">от {item.price} ₽</div>
+                  {/* <button className="card-button">Добавить</button> */}
+                  <AddToCartButton item={item}></AddToCartButton>
+                </div>
               </div>
             </div>
-          </div>
           </>
         ))}
         <div id="Салаты" className="new-section anchor">
@@ -199,20 +189,20 @@ export default function Home() {
         </div>
         {salads.map((item) => (
           <>
-          <div className="card">
-            <img
-              src={item.img_path}
-              className="card-img"
-            ></img>
-            <div className="card-description">
-              <h2 className="card-name">{item.name}</h2>
-              <div className="weight-amount">{item.weight} гр. / {item.amount} шт.</div>
-              <div className="card-bottom-content">
-                <p className="card-price">от {item.price} ₽</p>
-                <button className="card-button">Добавить</button>
+            <div className="product-item">
+              <img src={item.img_path} className="product-item-img"></img>
+              <div className="product-item-description">
+                <h2 className="product-item-name">{item.name}</h2>
+                <div className="weight-amount">
+                  {item.weight} гр. / {item.amount} шт.
+                </div>
+                <div>
+                  <div className="product-item-price">от {item.price} ₽</div>
+                  {/* <button className="card-button">Добавить</button> */}
+                  <AddToCartButton item={item}></AddToCartButton>
+                </div>
               </div>
             </div>
-          </div>
           </>
         ))}
         <div id="Соусы" className="new-section anchor">
@@ -220,20 +210,20 @@ export default function Home() {
         </div>
         {sauces.map((item) => (
           <>
-          <div className="card">
-            <img
-              src={item.img_path}
-              className="card-img"
-            ></img>
-            <div className="card-description">
-              <h2 className="card-name">{item.name}</h2>
-              <div className="weight-amount">{item.weight} гр. / {item.amount} шт.</div>
-              <div className="card-bottom-content">
-                <p className="card-price">от {item.price} ₽</p>
-                <button className="card-button">Добавить</button>
+            <div className="product-item">
+              <img src={item.img_path} className="product-item-img"></img>
+              <div className="product-item-description">
+                <h2 className="product-item-name">{item.name}</h2>
+                <div className="weight-amount">
+                  {item.weight} гр. / {item.amount} шт.
+                </div>
+                <div>
+                  <div className="product-item-price">от {item.price} ₽</div>
+                  {/* <button className="card-button">Добавить</button> */}
+                  <AddToCartButton item={item}></AddToCartButton>
+                </div>
               </div>
             </div>
-          </div>
           </>
         ))}
         <div id="Разное" className="new-section anchor">
@@ -241,20 +231,20 @@ export default function Home() {
         </div>
         {misc.map((item) => (
           <>
-          <div className="card">
-            <img
-              src={item.img_path}
-              className="card-img"
-            ></img>
-            <div className="card-description">
-              <h2 className="card-name">{item.name}</h2>
-              <div className="weight-amount">{item.weight} гр. / {item.amount} шт.</div>
-              <div className="card-bottom-content">
-                <p className="card-price">от {item.price} ₽</p>
-                <button className="card-button">Добавить</button>
+            <div className="product-item">
+              <img src={item.img_path} className="product-item-img"></img>
+              <div className="product-item-description">
+                <h2 className="product-item-name">{item.name}</h2>
+                <div className="weight-amount">
+                  {item.weight} гр. / {item.amount} шт.
+                </div>
+                <div>
+                  <div className="product-item-price">от {item.price} ₽</div>
+                  {/* <button className="card-button">Добавить</button> */}
+                  <AddToCartButton item={item}></AddToCartButton>
+                </div>
               </div>
             </div>
-          </div>
           </>
         ))}
       </section>
