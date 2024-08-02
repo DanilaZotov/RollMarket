@@ -5,10 +5,10 @@ import mysql from "mysql";
 const app = express();
 
 const connection = mysql.createConnection({
-  host: "server160.hosting.reg.ru",
-  user: "u2481097_abc",
-  password: "uY4aW1qZ4rhH4aI7",
-  database: "u2481097_default",
+  host: "",
+  user: "",
+  password: "",
+  database: "",
 });
 
 connection.connect((err) => {
